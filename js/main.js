@@ -2,6 +2,11 @@
 "use strict";
 
 (/* Image upload logic */() => {
+  /** @type {HTMLFormElement | null} */
+  const imgForm = document.querySelector('#img-form')
+  if (!imgForm) return
+
+  /** @type {HTMLInputElement | null} */
   const imgFile = document.querySelector('#img-file')
   if (!imgFile) return
 
@@ -27,6 +32,8 @@
 
       const file = target.files[0]
       const fileBytes = new Uint8Array(await file.arrayBuffer())
+
+      imgForm.reset()
 
       imgResult.innerHTML = JSON.stringify(fileBytes)
     }
