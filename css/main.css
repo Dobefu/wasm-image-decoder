@@ -1,0 +1,8 @@
+body {
+  margin: 2rem;
+}
+
+.inline-container {
+  margin-inline: auto;
+  max-width: 768px;
+}
