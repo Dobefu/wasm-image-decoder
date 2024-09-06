@@ -6,3 +6,7 @@ body {
   margin-inline: auto;
   max-width: 768px;
 }
+
+.hidden {
+  display: none;
+}

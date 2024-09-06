@@ -10,6 +10,7 @@
   const imgFile = document.querySelector('#img-file')
   if (!imgFile) return
 
+  /** @type {HTMLCanvasElement | null} */
   const imgResult = document.querySelector('#img-result')
   if (!imgResult) return
 
@@ -32,10 +33,18 @@
 
       const file = target.files[0]
       const fileBytes = new Uint8Array(await file.arrayBuffer())
+      const buffer = globalThis.Module._malloc(fileBytes.length)
 
+      globalThis.Module.HEAPU8.set(fileBytes, buffer)
+      globalThis.Module.ccall(
+        'decode_img',
+        null,
+        ['number', 'number'],
+        [buffer, fileBytes.length],
+      );
+
+      globalThis.Module._free(buffer)
       imgForm.reset()
-
-      imgResult.innerHTML = JSON.stringify(fileBytes)
     }
   )
 })()
